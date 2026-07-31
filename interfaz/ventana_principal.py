@@ -732,7 +732,9 @@ class VentanaPrincipal:
 
         self.tabla_clientes.column(
             "detalle",
-            width=220
+            width=430,
+            minwidth=430,
+            stretch=False
         )
 
         barra_vertical = ttk.Scrollbar(
@@ -1057,27 +1059,27 @@ class VentanaPrincipal:
 
     def obtener_detalle_cliente(self, cliente):
         """
-        Genera el texto adicional de cada tipo.
+        Genera la información adicional de cada tipo de cliente.
+        El descuento se muestra primero para que siempre sea visible.
         """
 
         if isinstance(cliente, ClientePremium):
             return (
-                f"Puntos: {cliente.obtener_puntos()} | "
-                f"Descuento: "
-                f"{cliente.calcular_descuento()}%"
+                f"Descuento: {cliente.calcular_descuento()}% | "
+                f"Puntos: {cliente.obtener_puntos()}"
             )
 
         if isinstance(cliente, ClienteCorporativo):
             return (
-                f"{cliente.obtener_empresa()} | "
-                f"RUT: {cliente.obtener_rut_empresa()}"
+                f"Descuento: {cliente.calcular_descuento()}% | "
+                f"Empresa: {cliente.obtener_empresa()} | "
+                f"RUT: {cliente.obtener_rut_empresa()} | "
+                f"Contacto: {cliente.obtener_contacto()}"
             )
 
         return (
-            f"Descuento: "
-            f"{cliente.calcular_descuento()}%"
+            f"Descuento: {cliente.calcular_descuento()}%"
         )
-
     def obtener_nombre_tipo(self, cliente):
         """
         Devuelve un nombre simple para el tipo.
