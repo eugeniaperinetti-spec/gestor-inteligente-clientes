@@ -1,17 +1,126 @@
-@startuml diagrama_clases
+@startuml
 
-!pragma layout smetana
+title Gestor Inteligente de Clientes (GIC)\nDiagrama de Clases
 
-title Gestor Inteligente de Clientes\nDiagrama de clases
+left to right direction
+scale max 1800*1800
 
-skinparam backgroundColor white
-skinparam shadowing false
+skinparam dpi 110
+skinparam defaultFontSize 11
+skinparam classFontSize 11
+skinparam classAttributeFontSize 9
+skinparam classStereotypeFontSize 9
 skinparam classAttributeIconSize 0
+skinparam shadowing false
 skinparam packageStyle rectangle
-skinparam defaultFontColor black
-skinparam ArrowColor black
-skinparam ClassBackgroundColor white
-skinparam ClassBorderColor black
+skinparam linetype ortho
+skinparam nodesep 25
+skinparam ranksep 30
+
+package "Interfaz gráfica" {
+
+    class VentanaPrincipal {
+        - ventana: Tk
+        - gestor: GestorClientes
+        - id_cliente_seleccionado: int
+
+        + __init__(ventana: Tk)
+        + crear_interfaz(): void
+        + registrar_cliente(): void
+        + actualizar_cliente(): void
+        + eliminar_cliente(): void
+        + buscar_cliente(): void
+        + actualizar_tabla(): void
+        + limpiar_formulario(): void
+        + exportar_archivos(): void
+        + mostrar_actividades(): void
+    }
+}
+
+package "Servicios" {
+
+    class GestorClientes {
+        - __base_datos: BaseDatos
+        - __gestor_archivos: GestorArchivos
+        - __registro_actividad: RegistroActividad
+        - __validador_email_api: ValidadorEmailAPI
+        - __servicio_email: ServicioEmailBienvenida
+        - __clientes: list
+
+        + __init__(base_datos, gestor_archivos, registro_actividad)
+        + agregar_cliente(cliente: Cliente): Cliente
+        + listar_clientes(): list
+        + buscar_cliente(id_cliente: int): Cliente
+        + editar_cliente(id_cliente: int): Cliente
+        + eliminar_cliente(id_cliente: int): Cliente
+        + agregar_puntos(id_cliente: int, cantidad: int): Cliente
+        + exportar_archivos(): dict
+        + recargar_desde_base_datos(): list
+        + leer_actividades(): list
+        + obtener_estado_integraciones(): dict
+    }
+
+    class BaseDatos {
+        - __ruta_base_datos: Path
+
+        + __init__(ruta_base_datos)
+        + crear_tabla(): void
+        + guardar_cliente(cliente: Cliente): bool
+        + guardar_clientes(clientes: list): int
+        + obtener_clientes(): list
+        + buscar_cliente(id_cliente: int): Cliente
+        + actualizar_cliente(cliente: Cliente): bool
+        + eliminar_cliente(id_cliente: int): bool
+        + obtener_ruta(): str
+    }
+
+    class GestorArchivos {
+        - __ruta_json: Path
+        - __ruta_csv: Path
+
+        + __init__(ruta_json, ruta_csv)
+        + guardar_json(clientes: list): str
+        + cargar_json(): list
+        + exportar_csv(clientes: list): str
+        + cargar_csv(): list
+        + obtener_ruta_json(): str
+        + obtener_ruta_csv(): str
+    }
+
+    class RegistroActividad {
+        - __ruta_archivo: Path
+
+        + __init__(ruta_archivo)
+        + registrar(accion: str, detalle: str): str
+        + leer_registros(): list
+        + limpiar_registro(): bool
+        + obtener_ruta(): str
+    }
+
+    class ValidadorEmailAPI {
+        {static} + URL_API: str
+        - __api_key: str
+        - __timeout: int
+        - __activar: bool
+
+        + __init__(api_key, timeout, activar)
+        + esta_configurado(): bool
+        + validar(email: str): dict
+    }
+
+    class ServicioEmailBienvenida {
+        {static} + URL_API: str
+        - __api_key: str
+        - __remitente_email: str
+        - __remitente_nombre: str
+        - __timeout: int
+        - __activar: bool
+
+        + __init__(api_key, remitente_email, activar)
+        + esta_configurado(): bool
+        + enviar(cliente: Cliente): dict
+    }
+}
 
 package "Modelos" {
 
@@ -23,34 +132,38 @@ package "Modelos" {
         - __direccion: str
         - __fecha_registro: str
 
+        + __init__(id_cliente, nombre, email, telefono, direccion)
         + obtener_id(): int
         + obtener_nombre(): str
         + obtener_email(): str
         + obtener_telefono(): str
         + obtener_direccion(): str
-
         + establecer_nombre(nombre): void
         + establecer_email(email): void
         + establecer_telefono(telefono): void
         + establecer_direccion(direccion): void
-
-        + calcular_descuento(): int
+        + calcular_descuento(): float
         + convertir_a_diccionario(): dict
         + __str__(): str
-        + __eq__(otro): bool
+        + __eq__(otro_cliente: Cliente): bool
     }
 
     class ClienteRegular {
-        + calcular_descuento(): int
+        + __init__(id_cliente, nombre, email, telefono, direccion)
+        + calcular_descuento(): float
+        + __str__(): str
     }
 
     class ClientePremium {
         - __puntos: int
 
+        + __init__(id_cliente, nombre, email, telefono, direccion, puntos)
         + obtener_puntos(): int
         + establecer_puntos(puntos): void
         + agregar_puntos(cantidad): bool
-        + calcular_descuento(): int
+        + calcular_descuento(): float
+        + convertir_a_diccionario(): dict
+        + __str__(): str
     }
 
     class ClienteCorporativo {
@@ -58,126 +171,61 @@ package "Modelos" {
         - __rut_empresa: str
         - __contacto: str
 
+        + __init__(id_cliente, nombre, email, empresa, rut_empresa)
         + obtener_empresa(): str
         + obtener_rut_empresa(): str
         + obtener_contacto(): str
-
         + establecer_empresa(empresa): void
         + establecer_rut_empresa(rut): void
         + establecer_contacto(contacto): void
-
-        + calcular_descuento(): int
+        + calcular_descuento(): float
+        + convertir_a_diccionario(): dict
+        + __str__(): str
     }
 }
 
-package "Servicios" {
+package "Validaciones" {
 
-    class GestorClientes {
-        - __clientes: list
-        - __base_datos: BaseDatos
-        - __gestor_archivos: GestorArchivos
-        - __registro_actividad: RegistroActividad
-
-        + agregar_cliente(cliente): Cliente
-        + listar_clientes(): list
-        + buscar_cliente(id): Cliente
-        + editar_cliente(id): Cliente
-        + eliminar_cliente(id): Cliente
-        + agregar_puntos(id, cantidad): Cliente
-        + exportar_archivos(): dict
-        + leer_actividades(): list
-    }
-
-    class Validador {
-        {static} + validar_id(id): int
-        {static} + validar_nombre(nombre): str
-        {static} + validar_email(email): str
-        {static} + validar_telefono(telefono): str
-        {static} + validar_direccion(direccion): str
-        {static} + validar_empresa(empresa): str
-        {static} + validar_puntos(puntos): int
-        {static} + validar_rut(rut): str
-    }
-
-    class BaseDatos {
-        - __ruta_base_datos: Path
-
-        + crear_tabla(): void
-        + guardar_cliente(cliente): bool
-        + obtener_clientes(): list
-        + buscar_cliente(id): Cliente
-        + actualizar_cliente(cliente): bool
-        + eliminar_cliente(id): bool
-    }
-
-    class GestorArchivos {
-        - __ruta_json: Path
-        - __ruta_csv: Path
-
-        + guardar_json(clientes): str
-        + cargar_json(): list
-        + exportar_csv(clientes): str
-        + cargar_csv(): list
-    }
-
-    class RegistroActividad {
-        - __ruta_archivo: Path
-
-        + registrar(accion, detalle): str
-        + leer_registros(): list
-        + limpiar_registro(): bool
+    class Validador <<static>> {
+        + validar_id(id_cliente): int
+        + validar_nombre(nombre): str
+        + validar_email(email): str
+        + validar_telefono(telefono): str
+        + validar_direccion(direccion): str
+        + validar_puntos(puntos): int
+        + validar_empresa(empresa): str
+        + validar_rut(rut): str
     }
 }
 
-package "Interfaz" {
-
-    class VentanaPrincipal {
-        - ventana: Tk
-        - gestor: GestorClientes
-        - id_cliente_seleccionado: int
-
-        + registrar_cliente(): void
-        + actualizar_cliente(): void
-        + eliminar_cliente(): void
-        + buscar_cliente(): void
-        + actualizar_tabla(): void
-        + exportar_archivos(): void
-        + mostrar_actividades(): void
-    }
-}
-
+' Herencia
 Cliente <|-- ClienteRegular
 Cliente <|-- ClientePremium
 Cliente <|-- ClienteCorporativo
 
-GestorClientes o-- "0..*" Cliente : administra
+' Composición entre interfaz y gestor
+VentanaPrincipal *-- "1" GestorClientes : contiene
 
-GestorClientes *-- "1" BaseDatos : SQLite
-GestorClientes *-- "1" GestorArchivos : JSON y CSV
-GestorClientes *-- "1" RegistroActividad : logs
+' Agregaciones del gestor
+GestorClientes o-- "1" BaseDatos : persistencia
+GestorClientes o-- "1" GestorArchivos : archivos
+GestorClientes o-- "1" RegistroActividad : registros
+GestorClientes o-- "1" ValidadorEmailAPI : valida email
+GestorClientes o-- "1" ServicioEmailBienvenida : notifica
 
-VentanaPrincipal *-- "1" GestorClientes : utiliza
+' Asociación con clientes
+GestorClientes --> "0..*" Cliente : gestiona
 
-Cliente ..> Validador : valida
+' Dependencias con modelos
+BaseDatos ..> Cliente : guarda y recupera
+GestorArchivos ..> Cliente : importa y exporta
+ServicioEmailBienvenida ..> Cliente : envía bienvenida
+
+' Dependencias con validaciones
+Cliente ..> Validador : valida datos
 ClientePremium ..> Validador : valida puntos
-ClienteCorporativo ..> Validador : valida RUT
-
-BaseDatos ..> Cliente : almacena
-GestorArchivos ..> Cliente : exporta
-
-note right of Cliente
-Clase padre con los datos
-comunes de todos los clientes.
-end note
-
-note right of ClientePremium
-Cliente especializado con
-puntos y descuento del 10 %.
-end note
-
-note right of ClienteCorporativo
-Cliente especializado con
-empresa, RUT y contacto.
-end note
+ClienteCorporativo ..> Validador : valida empresa y RUT
+GestorClientes ..> Validador : valida operaciones
+BaseDatos ..> Validador : valida identificadores
 
 @enduml
