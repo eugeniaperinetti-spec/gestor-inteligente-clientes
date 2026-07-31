@@ -1,0 +1,6 @@
+﻿id_cliente,nombre,email,telefono,direccion,fecha_registro,tipo_cliente,descuento,puntos,empresa,rut_empresa,contacto
+1,María Eugenia Perinetti,maria.perinetti@email.cl,56999999998,"Viña del Mar, Región de Valparaíso",28-07-2026 21:54:15,ClienteRegular,0,,,,
+2,Isabella,isa@correo.cl,9898989898,los platanos 333,28-07-2026 23:41:10,ClientePremium,10,500,,,
+3,Antonio Globito,antonio@correo.cl,999999999,los platanos 3333,28-07-2026 22:24:24,ClienteCorporativo,15,,Pillku,66666666-6,Antonio Globito
+4,Rafaella Escudero,rafaella@correo.cl,999999999,los almendros 4444,28-07-2026 22:05:05,ClienteRegular,0,,,,
+5,Martina,marti@correo.com,999999999,los almendros 444,30-07-2026 20:53:47,ClienteRegular,0,,,,

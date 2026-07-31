@@ -1,0 +1,183 @@
+@startuml diagrama_clases
+
+!pragma layout smetana
+
+title Gestor Inteligente de Clientes\nDiagrama de clases
+
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam defaultFontColor black
+skinparam ArrowColor black
+skinparam ClassBackgroundColor white
+skinparam ClassBorderColor black
+
+package "Modelos" {
+
+    class Cliente {
+        - __id_cliente: int
+        - __nombre: str
+        - __email: str
+        - __telefono: str
+        - __direccion: str
+        - __fecha_registro: str
+
+        + obtener_id(): int
+        + obtener_nombre(): str
+        + obtener_email(): str
+        + obtener_telefono(): str
+        + obtener_direccion(): str
+
+        + establecer_nombre(nombre): void
+        + establecer_email(email): void
+        + establecer_telefono(telefono): void
+        + establecer_direccion(direccion): void
+
+        + calcular_descuento(): int
+        + convertir_a_diccionario(): dict
+        + __str__(): str
+        + __eq__(otro): bool
+    }
+
+    class ClienteRegular {
+        + calcular_descuento(): int
+    }
+
+    class ClientePremium {
+        - __puntos: int
+
+        + obtener_puntos(): int
+        + establecer_puntos(puntos): void
+        + agregar_puntos(cantidad): bool
+        + calcular_descuento(): int
+    }
+
+    class ClienteCorporativo {
+        - __empresa: str
+        - __rut_empresa: str
+        - __contacto: str
+
+        + obtener_empresa(): str
+        + obtener_rut_empresa(): str
+        + obtener_contacto(): str
+
+        + establecer_empresa(empresa): void
+        + establecer_rut_empresa(rut): void
+        + establecer_contacto(contacto): void
+
+        + calcular_descuento(): int
+    }
+}
+
+package "Servicios" {
+
+    class GestorClientes {
+        - __clientes: list
+        - __base_datos: BaseDatos
+        - __gestor_archivos: GestorArchivos
+        - __registro_actividad: RegistroActividad
+
+        + agregar_cliente(cliente): Cliente
+        + listar_clientes(): list
+        + buscar_cliente(id): Cliente
+        + editar_cliente(id): Cliente
+        + eliminar_cliente(id): Cliente
+        + agregar_puntos(id, cantidad): Cliente
+        + exportar_archivos(): dict
+        + leer_actividades(): list
+    }
+
+    class Validador {
+        {static} + validar_id(id): int
+        {static} + validar_nombre(nombre): str
+        {static} + validar_email(email): str
+        {static} + validar_telefono(telefono): str
+        {static} + validar_direccion(direccion): str
+        {static} + validar_empresa(empresa): str
+        {static} + validar_puntos(puntos): int
+        {static} + validar_rut(rut): str
+    }
+
+    class BaseDatos {
+        - __ruta_base_datos: Path
+
+        + crear_tabla(): void
+        + guardar_cliente(cliente): bool
+        + obtener_clientes(): list
+        + buscar_cliente(id): Cliente
+        + actualizar_cliente(cliente): bool
+        + eliminar_cliente(id): bool
+    }
+
+    class GestorArchivos {
+        - __ruta_json: Path
+        - __ruta_csv: Path
+
+        + guardar_json(clientes): str
+        + cargar_json(): list
+        + exportar_csv(clientes): str
+        + cargar_csv(): list
+    }
+
+    class RegistroActividad {
+        - __ruta_archivo: Path
+
+        + registrar(accion, detalle): str
+        + leer_registros(): list
+        + limpiar_registro(): bool
+    }
+}
+
+package "Interfaz" {
+
+    class VentanaPrincipal {
+        - ventana: Tk
+        - gestor: GestorClientes
+        - id_cliente_seleccionado: int
+
+        + registrar_cliente(): void
+        + actualizar_cliente(): void
+        + eliminar_cliente(): void
+        + buscar_cliente(): void
+        + actualizar_tabla(): void
+        + exportar_archivos(): void
+        + mostrar_actividades(): void
+    }
+}
+
+Cliente <|-- ClienteRegular
+Cliente <|-- ClientePremium
+Cliente <|-- ClienteCorporativo
+
+GestorClientes o-- "0..*" Cliente : administra
+
+GestorClientes *-- "1" BaseDatos : SQLite
+GestorClientes *-- "1" GestorArchivos : JSON y CSV
+GestorClientes *-- "1" RegistroActividad : logs
+
+VentanaPrincipal *-- "1" GestorClientes : utiliza
+
+Cliente ..> Validador : valida
+ClientePremium ..> Validador : valida puntos
+ClienteCorporativo ..> Validador : valida RUT
+
+BaseDatos ..> Cliente : almacena
+GestorArchivos ..> Cliente : exporta
+
+note right of Cliente
+Clase padre con los datos
+comunes de todos los clientes.
+end note
+
+note right of ClientePremium
+Cliente especializado con
+puntos y descuento del 10 %.
+end note
+
+note right of ClienteCorporativo
+Cliente especializado con
+empresa, RUT y contacto.
+end note
+
+@enduml

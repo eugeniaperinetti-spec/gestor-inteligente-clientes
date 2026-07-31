@@ -1,0 +1,31 @@
+# Archivos generados por Python
+__pycache__/
+*.py[cod]
+
+# Entornos virtuales
+venv/
+.venv/
+env/
+
+# Claves y variables privadas
+.env
+*.env
+config_secreta.py
+secretos.py
+
+# Configuración local
+.vscode/settings.json
+
+# Base de datos generada
+datos/*.db
+
+# Archivos temporales
+*.tmp
+*.bak
+
+# Exportaciones temporales de PlantUML
+out/
+
+# Archivos de Windows y macOS
+Thumbs.db
+.DS_Store

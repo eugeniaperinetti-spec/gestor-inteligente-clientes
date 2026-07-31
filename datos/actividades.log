@@ -1,0 +1,21 @@
+[28-07-2026 21:41:33] CREACIÓN | Se registró el cliente ID 1, nombre María Eugenia, tipo ClienteRegular.
+[28-07-2026 21:41:33] CREACIÓN | Se registró el cliente ID 2, nombre Ana Pérez, tipo ClientePremium.
+[28-07-2026 21:41:33] CREACIÓN | Se registró el cliente ID 3, nombre Carlos Soto, tipo ClienteCorporativo.
+[28-07-2026 21:41:33] EDICIÓN | Se modificó el cliente ID 1. Campos actualizados: nombre, email, teléfono, dirección.
+[28-07-2026 21:41:33] ELIMINACIÓN | Se eliminó el cliente ID 3, nombre Carlos Soto, tipo ClienteCorporativo.
+[28-07-2026 21:47:41] CREACIÓN | Se registró el cliente ID 1, nombre María Eugenia, tipo ClienteRegular.
+[28-07-2026 21:47:41] CREACIÓN | Se registró el cliente ID 2, nombre Ana Pérez, tipo ClientePremium.
+[28-07-2026 21:47:41] CREACIÓN | Se registró el cliente ID 3, nombre Carlos Soto, tipo ClienteCorporativo.
+[28-07-2026 22:05:05] CREACIÓN | Se registró el cliente ID 4, nombre Rafaella Escuderi, tipo ClienteRegular.
+[28-07-2026 22:05:50] EDICIÓN | Se modificó el cliente ID 4. Campos actualizados: nombre, email, teléfono, dirección.
+[28-07-2026 22:06:01] EXPORTACIÓN | Se actualizaron los archivos JSON y CSV.
+[28-07-2026 22:24:24] CREACIÓN | Se registró el cliente ID 3, nombre Antonio Globito, tipo ClienteCorporativo.
+[28-07-2026 22:25:05] EDICIÓN | Se modificó el cliente ID 1. Campos actualizados: nombre, email, teléfono, dirección.
+[28-07-2026 22:25:20] EDICIÓN | Se modificó el cliente ID 1. Campos actualizados: nombre, email, teléfono, dirección.
+[28-07-2026 22:25:53] ELIMINACIÓN | Se eliminó el cliente ID 2, nombre Ana Pérez, tipo ClientePremium.
+[28-07-2026 23:41:10] CREACIÓN | Se registró el cliente ID 2, nombre Isabella, tipo ClientePremium.
+[28-07-2026 23:41:10] VALIDACIÓN DEMOSTRACIÓN | El correo del cliente ID 2 fue validado solo con las reglas locales.
+[28-07-2026 23:41:10] NOTIFICACIÓN DEMOSTRACIÓN | Se simuló el correo de bienvenida para el cliente ID 2.
+[30-07-2026 20:53:47] CREACIÓN | Se registró el cliente ID 5, nombre Martina, tipo ClienteRegular.
+[30-07-2026 20:53:47] VALIDACIÓN DEMOSTRACIÓN | El correo del cliente ID 5 fue validado solo con las reglas locales.
+[30-07-2026 20:53:47] NOTIFICACIÓN DEMOSTRACIÓN | Se simuló el correo de bienvenida para el cliente ID 5.

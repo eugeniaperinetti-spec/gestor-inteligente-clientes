@@ -1,0 +1,56 @@
+[
+    {
+        "id_cliente": 1,
+        "nombre": "María Eugenia Perinetti",
+        "email": "maria.perinetti@email.cl",
+        "telefono": "56999999998",
+        "direccion": "Viña del Mar, Región de Valparaíso",
+        "fecha_registro": "28-07-2026 21:54:15",
+        "tipo_cliente": "ClienteRegular",
+        "descuento": 0
+    },
+    {
+        "id_cliente": 2,
+        "nombre": "Isabella",
+        "email": "isa@correo.cl",
+        "telefono": "9898989898",
+        "direccion": "los platanos 333",
+        "fecha_registro": "28-07-2026 23:41:10",
+        "tipo_cliente": "ClientePremium",
+        "descuento": 10,
+        "puntos": 500
+    },
+    {
+        "id_cliente": 3,
+        "nombre": "Antonio Globito",
+        "email": "antonio@correo.cl",
+        "telefono": "999999999",
+        "direccion": "los platanos 3333",
+        "fecha_registro": "28-07-2026 22:24:24",
+        "tipo_cliente": "ClienteCorporativo",
+        "descuento": 15,
+        "empresa": "Pillku",
+        "rut_empresa": "66666666-6",
+        "contacto": "Antonio Globito"
+    },
+    {
+        "id_cliente": 4,
+        "nombre": "Rafaella Escudero",
+        "email": "rafaella@correo.cl",
+        "telefono": "999999999",
+        "direccion": "los almendros 4444",
+        "fecha_registro": "28-07-2026 22:05:05",
+        "tipo_cliente": "ClienteRegular",
+        "descuento": 0
+    },
+    {
+        "id_cliente": 5,
+        "nombre": "Martina",
+        "email": "marti@correo.com",
+        "telefono": "999999999",
+        "direccion": "los almendros 444",
+        "fecha_registro": "30-07-2026 20:53:47",
+        "tipo_cliente": "ClienteRegular",
+        "descuento": 0
+    }
+]
