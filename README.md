@@ -334,12 +334,10 @@ documentación/diagrama_clases.puml
 
 El proyecto incluye:
 
-- Manual de usuario.
-- Diagrama de clases.
-- Explicación de los conceptos de POO.
-- Capturas de funcionamiento.
-- Pruebas unitarias.
-- Registro de actividades.
+ diagrama_clases.png
+ diagrama_clases.puml
+ explicacion_poo.md
+ manual_usuario.md
 
 ---
 
