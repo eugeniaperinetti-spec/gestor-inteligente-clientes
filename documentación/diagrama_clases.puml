@@ -47,7 +47,7 @@ package "Servicios" {
         - __servicio_email: ServicioEmailBienvenida
         - __clientes: list
 
-        + __init__(base_datos, gestor_archivos, registro_actividad)
+        + __init__(base_datos=None, gestor_archivos=None, registro_actividad=None, validador_email_api=None, servicio_email=None)
         + agregar_cliente(cliente: Cliente): Cliente
         + listar_clientes(): list
         + buscar_cliente(id_cliente: int): Cliente
@@ -171,7 +171,7 @@ package "Modelos" {
         - __rut_empresa: str
         - __contacto: str
 
-        + __init__(id_cliente, nombre, email, empresa, rut_empresa)
+        + __init__(id_cliente, nombre, email, telefono, direccion, empresa, rut_empresa, contacto, fecha_registro=None)
         + obtener_empresa(): str
         + obtener_rut_empresa(): str
         + obtener_contacto(): str
