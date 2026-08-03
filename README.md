@@ -159,11 +159,10 @@ gestor-inteligente-clientes/
 │   └── test_clientes.py
 │
 └── documentación/
-    ├── capturas/
     ├── diagrama_clases.png
     ├── diagrama_clases.puml
     ├── explicacion_poo.md
-    └── Manual_de_Usuario_GIC.docx
+    └── manual_usuario.md
 ```
 
 ---
